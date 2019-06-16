@@ -7,11 +7,13 @@ function Matrix(rows, cols) {
 
 Matrix.prototype.printMatrix = function() {
   let row, col;
-  for(row in rows) {
-    for(col in cols) {
-      console.log(this.contents[(row - 1) * this.cols + (col - 1)]);
+  let temp = [];
+  for(row = 1; row < this.rows + 1; row++) {
+    for(col = 1; col < this.cols + 1; col++) {
+      temp.push(this.getElement(row, col));
     }
-
+    console.log(temp);
+    temp = [];
   }
 };
 
@@ -46,6 +48,16 @@ Matrix.prototype.posToIndex = function(pos) {
   return index;
 };
 
-var m = new Matrix(8, 6);
-m.setElement(1, 1, 23);
-console.log(m.contents);
+Matrix.prototype.fillMatrix = function(val) {
+  let row, col;
+  for(row = 1; row < this.rows + 1; row++) {
+    for(col = 1; col < this.cols + 1; col++) {
+      this.setElement(row, col, val);
+    }
+  }
+};
+
+// var m = new Matrix(6, 8);
+// //m.setElement(1, 1, 23);
+// m.fillMatrix(false);
+// m.printMatrix();
