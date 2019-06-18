@@ -1,7 +1,9 @@
 // describe a grid
-function Grid(rows, cols, fillValue) {
+function Grid(rows, cols, cellWidth=100, cellHeight=100, fillValue=0) {
   this.rows = rows;
   this.cols = cols;
+  this.width = cellWidth * cols;
+  this.height = cellHeight * rows;
   this.matrix = new Matrix(rows, cols);
   this.matrix.fillMatrix(fillValue);
 }
@@ -10,14 +12,30 @@ Grid.prototype.initializeMatrix = function(val) {
   this.matrix.fillMatrix(val);
 };
 
-Grid.prototype.createSVGGrid = function(parentRef) {
-  let newEl, cell;
+Grid.prototype.createSVGToggleGrid = function(parentNode, setStyle = true) {
+  let newSVG, newEl, newCell;
+  console.log("setStyle = " + setStyle);
+  if(setStyle) {
+    parentNode.style.width = "600px";
+    parentNode.style.height = 600*this.rows/this.cols + "px";
+  }
+  // generate a new svg element
+  newSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  newSVG.setAttribute("id", "svg-grid");
+  newSVG.setAttribute("width", "100%");
+  newSVG.setAttribute("height", "100%");
+  newSVG.setAttribute("viewBox", "0 0 " + this.width + " " + this.height);
+  newSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+
+  // add grid cells
   for(var i = 1; i < this.rows + 1; i++) {
     for(var j = 1; j < this.cols + 1; j++) {
-      cell = new Cell(i, j, 100, 100);
-      newEl = cell.createSVGCell(i, j);
-      this.matrix.setElement(i, j, cell);
-      parentRef.appendChild(newEl);
+      newCell = new Cell(i, j);
+      newEl = newCell.createSVGCell(i, j);
+      this.matrix.setElement(i, j, newCell);
+      newSVG.appendChild(newEl);
     }
   }
+
+  parentNode.appendChild(newSVG);
 };

@@ -1,10 +1,6 @@
-// var m = new Matrix(2, 3);
-// var c = new Cell(100, 100, "#000", "#fff", "off");
-// m.fillMatrix(c);
-// console.log(m);
-
 var newGrid;
 
+// function to handle click event on the cells of the grid
 function handleClick(evt) {
   let cell;
   var pos = getPosFromID(evt.target.id);
@@ -18,17 +14,18 @@ function handleClick(evt) {
   }
 }
 
+// helper function used by handleClick to get the matrix array reference for
+// the cell that was clicked
 function getPosFromID(id) {
   let arr = id.split("_").map(Number);
   return arr;
 }
 
-var conEl = document.querySelector("#container");
+// get a reference to the grid-container
+var conEl = document.querySelector("#grid-container");
 conEl.addEventListener("click", handleClick);
 
-
-var svgEl = document.querySelector("#svg-grid");
-
-newGrid = new Grid(4, 6, 0);
+// create and display grid
+newGrid = new Grid(3, 6);
 console.log(newGrid);
-newGrid.createSVGGrid(svgEl);
+newGrid.createSVGToggleGrid(conEl);

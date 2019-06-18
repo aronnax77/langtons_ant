@@ -1,5 +1,5 @@
 // define a cell
-function Cell(i, j, width, height, onColor="lightyellow", offColor="lightblue", borderColor="grey", status="off") {
+function Cell(i, j, width=100, height=100, onColor="lightyellow", offColor="lightblue", borderColor="grey", status="off") {
   this.i = i;
   this.j = j;
   this.width = width;
@@ -46,28 +46,6 @@ Cell.prototype.setOffColor = function(st) {
 Cell.prototype.toggleStatus = function() {
   this.status==="off" ? this.status="on" : this.status="off";
 };
-
-Cell.prototype.toggleSVGFill = function() {
-  if(this.status === "off") {
-    this.toggleStatus();
-    this.offColor;
-  }
-};
-
-// Cell.prototype.getOrigin = function() {
-//   return this.origin;
-// };
-//
-// Cell.prototype.setOffColor = function(or) {
-//   this.origin = or;
-// };
-
-// Cell.prototype.calcOrigin = function(i, j) {
-//   let x, y;
-//   x = this.width * (i -1);
-//   y = this.height * (j - 1);
-//   return [x, y];
-// };
 
 Cell.prototype.createSVGCell = function(i, j) {
   var newEl = document.createElementNS("http://www.w3.org/2000/svg", "rect");
