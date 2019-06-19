@@ -61,23 +61,25 @@ Ant.prototype.setOrigin = function(origin) {
 // function to return the SVG representation of an ant
 Ant.prototype.createSVGAnt = function(parentNode) {
   var newGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
-  var newRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
   var newEllipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+  var newCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+
   newGroup.setAttribute("id", "ant");
-  newRect.setAttribute("x", this.origin[0]);
-  newRect.setAttribute("y", this.origin[1]);
-  newRect.setAttribute("width", this.width);
-  newRect.setAttribute("height", this.height);
-  newRect.setAttribute("fill", none);
+  newGroup.setAttribute("transform", "translate(" + this.origin[0] + ", " + this.origin[1] + ")");
 
-  newEllipse.setAttribut("cx", this.origin[0] + 50);
-  newEllipse.setAttribut("cy", this.origin[1] + 50);
-  newEllipse.setAttribut("rx", 50);
-  newEllipse.setAttribut("rx", 30);
-  newEllipse.setAttribut("fill", "red");
+  newEllipse.setAttribute("cx", 50);
+  newEllipse.setAttribute("cy", 50);
+  newEllipse.setAttribute("rx", 50);
+  newEllipse.setAttribute("ry", 30);
+  newEllipse.setAttribute("fill", "red");
 
-  newGroup.appendChild(newRect);
+  newCircle.setAttribute("cx", 20);
+  newCircle.setAttribute("cy", 50);
+  newCircle.setAttribute("r", 20);
+  newCircle.setAttribute("fill", "black");
+
   newGroup.appendChild(newEllipse);
+  newGroup.appendChild(newCircle);
 
   parentNode.appendChild(newGroup);
 };

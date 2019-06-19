@@ -15,7 +15,6 @@ function Grid(rows, cols, cellWidth=100, cellHeight=100, fillValue=0) {
 // of a div element
 Grid.prototype.createSVGToggleGrid = function(parentNode, setStyle = true) {
   let newSVG, newEl, newCell;
-  console.log("setStyle = " + setStyle);
   if(setStyle) {
     parentNode.style.width = "600px";
     parentNode.style.height = 600*this.rows/this.cols + "px";

@@ -1,5 +1,5 @@
 // declare variables
-var newGrid;
+var newGrid, conEl, newGrid, newAnt;
 
 // function to handle click event on the cells of the grid
 function handleClick(evt) {
@@ -23,13 +23,13 @@ function getPosFromID(id) {
 }
 
 // get a reference to the grid-container
-var conEl = document.querySelector("#grid-container");
+conEl = document.querySelector("#grid-container");
 conEl.addEventListener("click", handleClick);
 
 // create and display grid
-newGrid = new Grid(3, 6);
-newAnt = new Ant(2, 2);
-console.log(newGrid);
-console.log(newAnt);
+newGrid = new Grid(11, 11);
+newAnt = new Ant(6, 6);
 var svgEl = newGrid.createSVGToggleGrid(conEl);
+
+var svgElem = document.querySelector("#svg-grid");
 newAnt.createSVGAnt(svgEl);

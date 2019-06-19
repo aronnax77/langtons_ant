@@ -13,7 +13,6 @@ Matrix.prototype.printMatrix = function() {
     for(col = 1; col < this.cols + 1; col++) {
       temp.push(this.getElement(row, col));
     }
-    console.log(temp);
     temp = [];
   }
 };
