@@ -39,4 +39,6 @@ Grid.prototype.createSVGToggleGrid = function(parentNode, setStyle = true) {
   }
 
   parentNode.appendChild(newSVG);
+
+  return newSVG;
 };

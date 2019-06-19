@@ -28,5 +28,8 @@ conEl.addEventListener("click", handleClick);
 
 // create and display grid
 newGrid = new Grid(3, 6);
+newAnt = new Ant(2, 2);
 console.log(newGrid);
-newGrid.createSVGToggleGrid(conEl);
+console.log(newAnt);
+var svgEl = newGrid.createSVGToggleGrid(conEl);
+newAnt.createSVGAnt(svgEl);
