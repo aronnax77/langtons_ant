@@ -1,3 +1,4 @@
+// declare variables
 var newGrid;
 
 // function to handle click event on the cells of the grid

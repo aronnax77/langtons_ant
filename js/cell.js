@@ -11,6 +11,8 @@ function Cell(i, j, width=100, height=100, onColor="lightyellow", offColor="ligh
   this.origin = [(this.width * (j -1)), (this.height * (i - 1))];
 }
 
+/*                ACCESSORS - GETTERS AND SETTERS                         */
+
 Cell.prototype.getWidth = function() {
   return this.width;
 };
@@ -43,11 +45,13 @@ Cell.prototype.setOffColor = function(st) {
   this.status = st;
 };
 
+// function to toggle the value of the status flag
 Cell.prototype.toggleStatus = function() {
   this.status==="off" ? this.status="on" : this.status="off";
 };
 
-Cell.prototype.createSVGCell = function(i, j) {
+// function to create an svg cell which can be toggled as a switch element
+Cell.prototype.createSVGToggleCell = function(i, j) {
   var newEl = document.createElementNS("http://www.w3.org/2000/svg", "rect");
   newEl.setAttribute("id", i + "_" + j);
   newEl.setAttribute("x", this.origin[0]);

@@ -8,10 +8,11 @@ function Grid(rows, cols, cellWidth=100, cellHeight=100, fillValue=0) {
   this.matrix.fillMatrix(fillValue);
 }
 
-Grid.prototype.initializeMatrix = function(val) {
-  this.matrix.fillMatrix(val);
-};
-
+// a function to create a grid within an svg element.  Argument 'setStyle' is
+// intended to allow for the speedy creation of a grid for development and sets
+// the width of the grid to 600px.  Setting this to false will allow final styles
+// to be set using css.  The original design allows for a parent node in the form
+// of a div element
 Grid.prototype.createSVGToggleGrid = function(parentNode, setStyle = true) {
   let newSVG, newEl, newCell;
   console.log("setStyle = " + setStyle);
@@ -31,7 +32,7 @@ Grid.prototype.createSVGToggleGrid = function(parentNode, setStyle = true) {
   for(var i = 1; i < this.rows + 1; i++) {
     for(var j = 1; j < this.cols + 1; j++) {
       newCell = new Cell(i, j);
-      newEl = newCell.createSVGCell(i, j);
+      newEl = newCell.createSVGToggleCell(i, j);
       this.matrix.setElement(i, j, newCell);
       newSVG.appendChild(newEl);
     }
