@@ -1,3 +1,7 @@
+// global variables
+var gridWidth = 600;
+
+
 // describe a grid
 function Grid(rows, cols, cellWidth=100, cellHeight=100, fillValue=0) {
   this.rows = rows;
@@ -16,8 +20,8 @@ function Grid(rows, cols, cellWidth=100, cellHeight=100, fillValue=0) {
 Grid.prototype.createSVGToggleGrid = function(parentNode, setStyle = true) {
   let newSVG, newEl, newCell;
   if(setStyle) {
-    parentNode.style.width = "600px";
-    parentNode.style.height = 600*this.rows/this.cols + "px";
+    parentNode.style.width = gridWidth + "px";
+    parentNode.style.height = gridWidth*this.rows/this.cols + "px";
   }
   // generate a new svg element
   newSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
