@@ -2,16 +2,17 @@
 var directions = ["north", "east", "south", "west"];
 
 // create and ant constructor
-function Ant(i, j, width=100, height=100, direction="west") {
+function Ant(i, j, width=100, height=100) {
   this.i = i;
   this.j = j;
   this.lastI = i;
   this.lastJ = j;
   this.width = width;
   this.height = height;
-  this.direction = direction;
+  this.direction = undefined;
   this.origin = [(this.width * (j -1)), (this.height * (i - 1))];
   this.svgAnt = undefined;
+  this.directions = [];
 }
 
 /*                   ACCESSORS - getters and setters                */
@@ -80,20 +81,21 @@ Ant.prototype.setOrigin = function(origin) {
   this.height = origin;
 };
 
+
 // function to turn our ant to the left
 Ant.prototype.turnLeftSVGAnt01 = function() {
   switch(this.direction) {
-    case "north":
-      this.direction = "west";
+    case this.directions[0]:
+      this.direction = this.directions[3];
       break;
-    case "east":
-      this.direction = "north";
+    case this.directions[1]:
+      this.direction = this.directions[0];
       break;
-    case "south":
-      this.direction = "east";
+    case this.directions[2]:
+      this.direction = this.directions[1];
       break;
-    case "west":
-      this.direction = "south";
+    case this.directions[3]:
+      this.direction = this.directions[2];
       break;
   }
   this.updateSVGAnt01();
@@ -102,17 +104,17 @@ Ant.prototype.turnLeftSVGAnt01 = function() {
 // function to turn our ant to the right
 Ant.prototype.turnRightSVGAnt01 = function() {
   switch(this.direction) {
-    case "north":
-      this.direction = "east";
+    case this.directions[0]:
+      this.direction = this.directions[1];
       break;
-    case "east":
-      this.direction = "south";
+    case this.directions[1]:
+      this.direction = this.directions[2];
       break;
-    case "south":
-      this.direction = "west";
+    case this.directions[2]:
+      this.direction = this.directions[3];
       break;
-    case "west":
-      this.direction = "north";
+    case this.directions[3]:
+      this.direction = this.directions[0];
       break;
   }
   this.updateSVGAnt01();
@@ -120,24 +122,42 @@ Ant.prototype.turnRightSVGAnt01 = function() {
 
 
 // **********************************************************
-Ant.prototype.moveForwardSVGAnt01 = function() {
-
+Ant.prototype.moveForwardSVGAnt01 = function(gridRef) {
   switch(this.direction) {
     case "north":
       if(this.i > 1) {
+        this.lastI = this.i;
         this.i = this.i - 1;
+      } else {
+        console.error("error: the ant cannot move beyound the edge of the canvas!");
       }
       break;
     case "east":
-      this.direction = "south";
+      if(this.j < gridRef.cols) {
+        this.lastJ = this.j;
+        this.j = this.j + 1;
+      } else {
+        console.error("error: the ant cannot move beyound the edge of the canvas!");
+      }
       break;
     case "south":
-      this.direction = "west";
+      if(this.i < gridRef.rows) {
+        this.lastI = this.i;
+        this.i = this.i + 1;
+      } else {
+        console.error("error: the ant cannot move beyound the edge of the canvas!");
+      }
       break;
     case "west":
-      this.direction = "north";
+      if(this.j > 1) {
+        this.lastJ = this.j;
+        this.j = this.j - 1;
+      } else {
+        console.error("error: the ant cannot move beyound the edge of the canvas!");
+      }
       break;
   }
+  this.origin = [(this.width * (this.j -1)), (this.height * (this.i - 1))];
   this.updateSVGAnt01();
 };
 // ******************************************************************
@@ -160,12 +180,24 @@ Ant.prototype.updateSVGAnt01 = function() {
     case "west":
       break;
   }
-
   this.svgAnt.setAttribute("transform", transformStr);
+};
+
+// helper method to provide directions attribute
+Ant.prototype.getDirections = function(dir) {
+  let temp;
+  let arr = ["north", "east", "south", "west"];
+  while(arr[0] !== dir) {
+    temp = arr.shift();
+    arr.push(temp);
+  }
+  return arr;
 };
 
 // function to return the SVG representation of an ant
 Ant.prototype.createSVGAnt01 = function(parentNode) {
+  this.direction = "west";
+  this.directions = this.getDirections("west");
   var newGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
   var newEllipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
   var newCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
