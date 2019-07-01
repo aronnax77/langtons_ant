@@ -121,7 +121,6 @@ Ant.prototype.turnRightSVGAnt01 = function() {
 };
 
 
-// **********************************************************
 Ant.prototype.moveForwardSVGAnt01 = function(gridRef) {
   switch(this.direction) {
     case "north":
@@ -129,7 +128,7 @@ Ant.prototype.moveForwardSVGAnt01 = function(gridRef) {
         this.lastI = this.i;
         this.i = this.i - 1;
       } else {
-        console.error("error: the ant cannot move beyound the edge of the canvas!");
+        this.moveOverEdgeSVGAnt01();
       }
       break;
     case "east":
@@ -137,7 +136,7 @@ Ant.prototype.moveForwardSVGAnt01 = function(gridRef) {
         this.lastJ = this.j;
         this.j = this.j + 1;
       } else {
-        console.error("error: the ant cannot move beyound the edge of the canvas!");
+        this.moveOverEdgeSVGAnt01();
       }
       break;
     case "south":
@@ -145,7 +144,7 @@ Ant.prototype.moveForwardSVGAnt01 = function(gridRef) {
         this.lastI = this.i;
         this.i = this.i + 1;
       } else {
-        console.error("error: the ant cannot move beyound the edge of the canvas!");
+        this.moveOverEdgeSVGAnt01();
       }
       break;
     case "west":
@@ -153,14 +152,13 @@ Ant.prototype.moveForwardSVGAnt01 = function(gridRef) {
         this.lastJ = this.j;
         this.j = this.j - 1;
       } else {
-        console.error("error: the ant cannot move beyound the edge of the canvas!");
+        this.moveOverEdgeSVGAnt01();
       }
       break;
   }
   this.origin = [(this.width * (this.j -1)), (this.height * (this.i - 1))];
   this.updateSVGAnt01();
 };
-// ******************************************************************
 
 // function to update the display of the ant
 Ant.prototype.updateSVGAnt01 = function() {
@@ -222,3 +220,30 @@ Ant.prototype.createSVGAnt01 = function(parentNode) {
   parentNode.appendChild(newGroup);
   this.svgAnt = newGroup;
 };
+
+// function to handle movement beyond the edge of the grid
+Ant.prototype.moveOverEdgeSVGAnt01 = function() {
+  console.error("error: the ant cannot move beyound the edge of the canvas!");
+};
+
+
+// 888888888888888888888888888888888888888888888888888888888888888888888888888
+
+// move the ant
+Ant.prototype.moveSVGAnt01 = function(gridRef) {
+  if(this.isForwardGridOffSVGAnt01()) {
+    this.moveRule01SVGAnt01(gridRef);
+  } else {
+    this.moveRule01SVGAnt01(gridRef);
+  }
+};
+
+// movement rule 1 applies when the grid square in front of the ant is off i.e. status = "off"
+// turn right, move forward one grid square, and toggle state of the grid square being left
+Ant.prototype.moveRule01SVGAnt01 = function(gridRef) {
+  this.turnLeftSVGAnt01();
+  this.moveForwardSVGAnt01(gridRef);
+  /* toggle grid square status and colour */
+}
+
+// 888888888888888888888888888888888888888888888888888888888888888888888888888
